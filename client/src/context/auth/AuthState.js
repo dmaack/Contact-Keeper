@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
+import setAuthToken from '../../utils/setAuthToken';
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -26,9 +27,24 @@ const AuthState = props => {
 
     // Actions:
 
-    // Load User
-    const loadUser = () => {
-        console.log(loadUser)
+    // Load User - async because we're making a request to BE
+    const loadUser = async () => {
+        // todo - load token into global headers
+        if(localStorage.token) {
+            setAuthToken(localStorage.token)
+        }
+
+        try {
+            const res = await axios.get('/api/auth')
+
+            dispatch({ 
+                type: USER_LOADED, 
+                payload: res.data 
+            })
+
+        } catch (err) {
+            dispatch({ type: AUTH_ERROR })
+        }
     }
 
     // Register User
@@ -46,6 +62,9 @@ const AuthState = props => {
                 type: REGISTER_SUCCESS,
                 payload: res.data // should be token
             })
+
+            loadUser()
+            
         } catch (err) {
             dispatch({
                 type: REGISTER_FAIL,
@@ -55,8 +74,29 @@ const AuthState = props => {
     }
 
     // Login User
-    const login = () => {
-        console.log(login)
+    const login = async (formData) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+            const res = await axios.post('/api/auth', formData, config)
+
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data // should be token
+            })
+
+            loadUser()
+            
+        } catch (err) {
+            dispatch({
+                type: LOGIN_FAIL,
+                payload: err.response.data.msg
+            })
+        }
     }
 
     // Logout User
@@ -66,7 +106,7 @@ const AuthState = props => {
 
     // Clear Errors
     const clearErrors = () => {
-        console.log(clearErrors)
+        dispatch({ type: clearErrors })
     }
 
 
