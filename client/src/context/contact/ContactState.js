@@ -1,6 +1,5 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
-// import { v4 as uuidv4 } from 'uuid';
 import ContactContext from './contactContext';
 import contactReducer from './contactReducer';
 import {
@@ -31,7 +30,6 @@ const ContactState = props => {
     // Get Contacts
     const getContacts = async () => {
         try {
-
             const res = await axios.get('/api/contacts')
 
             // dispatch to reducer
@@ -61,7 +59,6 @@ const ContactState = props => {
 
             const res = await axios.post('/api/contacts', contact, config)
 
-            // dispatch to reducer
             dispatch({
                 type: ADD_CONTACT,
                 payload: res.data
@@ -105,6 +102,7 @@ const ContactState = props => {
         try {
 
             const res = await axios.put(`/api/contacts/${contact._id}`, contact, config)
+            console.log('res in update', res)
 
             dispatch({
                 type: UPDATE_CONTACT,
@@ -112,6 +110,7 @@ const ContactState = props => {
             })
 
         } catch (err) {
+            console.log('my err log', err)
             dispatch({ 
                 type: CONTACT_ERROR,
                 payload: err.response.msg 
@@ -127,8 +126,6 @@ const ContactState = props => {
 
     // Set Current Contact
     const setCurrent = contact => {
-
-        // dispatch to reducer
         dispatch({
             type: SET_CURRENT,
             payload: contact
@@ -138,8 +135,6 @@ const ContactState = props => {
 
     // Clear Current Contact
     const clearCurrent = () => {
-
-        // dispatch to reducer
         dispatch({
             type: CLEAR_CURRENT
         })
@@ -147,8 +142,6 @@ const ContactState = props => {
 
     // Filter Contacts
     const filterContacts = text => {
-
-        // dispatch to reducer
         dispatch({
             type: FILTER_CONTACTS,
             payload: text
@@ -157,8 +150,6 @@ const ContactState = props => {
 
     // Clear Filter
     const clearFilter = () => {
-
-        // dispatch to reducer
         dispatch({
             type: CLEAR_FILTER
         })

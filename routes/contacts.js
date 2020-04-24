@@ -78,10 +78,14 @@ router.put('/:id', auth, async (req, res) => {
 
             // Make sure user owns contact -- user.is a string
             if(contact.user.toString() !== req.user.id) {
-                return req.status(401).json({ msg: 'Not authorized' })
+                return res.status(401).json({ msg: 'Not authorized' })
             }
 
-            contact = await Contact.findByIdAndUpdate(req.params.id, { $set: contactFields }, { new: true })
+            contact = await Contact.findByIdAndUpdate(
+                req.params.id, 
+                { $set: contactFields }, 
+                { new: true }
+                )
 
             // send updated contact
             res.json(contact)

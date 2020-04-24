@@ -27,9 +27,9 @@ const AuthState = props => {
 
     // Actions:
 
-    // Load User - async because we're making a request to BE
+    // Load User - async because i'm making a request to BE
     const loadUser = async () => {
-        // todo - load token into global headers
+        // load token into global headers
         if(localStorage.token) {
             setAuthToken(localStorage.token)
         }
@@ -106,7 +106,7 @@ const AuthState = props => {
 
     // Clear Errors
     const clearErrors = () => {
-        dispatch({ type: clearErrors })
+        dispatch({ type: CLEAR_ERRORS })
     }
 
 

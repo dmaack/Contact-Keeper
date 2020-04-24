@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext'
-import { UPDATE_CONTACT } from '../../context/types';
+
 
 const ContactForm = () => {
     const contactContext = useContext(ContactContext)
@@ -39,6 +39,7 @@ const ContactForm = () => {
 
     const onSubmit = (e) => {
         e.preventDefault()
+        console.log('current onSumbit', current)
         if(current === null) {
             addContact(contact)
         } else {

@@ -10,7 +10,7 @@ const Contacts = () => {
     const contactContext = useContext(ContactContext)
 
     const { contacts, filtered, getContacts, loading } = contactContext
-
+    console.log('contacts in Contact.js', contacts)
     useEffect(() => {
         getContacts()
 
@@ -23,21 +23,32 @@ const Contacts = () => {
 
     return (
         <Fragment>
-            {contacts !== null && !loading ? (<TransitionGroup>
+            {contacts !== null && !loading ? (
+            <TransitionGroup>
                 {filtered !== null 
                 ? filtered.map(contact => (
-                    <CSSTransition key={contact._id} timeout={500} classNames='item'>
+                    <CSSTransition 
+                        key={contact._id} 
+                        timeout={500} 
+                        classNames='item'>
+
                         <ContactItem contact={contact} />
                     </CSSTransition>
                     )) 
                 : contacts.map(contact => (
-                    <CSSTransition key={contact._id} timeout={500} classNames='item'>
+                    <CSSTransition 
+                        key={contact._id} 
+                        timeout={500} 
+                        
+                        classNames='item'>
+
                         <ContactItem contact={contact} />
                     </CSSTransition>
                 ))} 
-            </TransitionGroup>) : <Spinner />}
-            
-   
+            </TransitionGroup>
+            ) : (
+            <Spinner />
+            )}
         </Fragment>
     )
 }
