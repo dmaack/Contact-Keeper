@@ -33,25 +33,26 @@ router.post('/',  [ //(4) --> users
 ], async (req, res) => {
     const errors = validationResult(req)
 
-    if(!errors.isEmpty()) {
+    if(!errors.isEmpty()) { // if there are any errors then send a response
         return res.status(400).json({ errors: errors.array() })
     }
 
     const { email, password } = req.body
 
     try {
-        let user = await User.findOne({ email })
+        let user = await User.findOne({ email }) // findOne returns a promise
 
-        if(!user) {
+        if(!user) { // if no user with that email 
             return res.status(400).json({ msg: 'Invalid credentials' })
         }
 
         const isMatch = await bcrypt.compare(password, user.password)
 
-        if(!isMatch) {
+        if(!isMatch) { // if the password doesnt match our hash
             return res.status(400).json({msg: 'Invalid credentials' })
         }
 
+        // if it does match then we wnt to send the token -- just like in register route
         // payload is the object I want to send in the token 
         const payload = {
             user: {
