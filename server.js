@@ -4,11 +4,11 @@ const connectDB = require('./config/db'); //(12) --> set up gitignore for pushin
 
 const app = express();
 
-// Connect Databse
-connectDB();
+// Connect Databse (15) --> user model
+connectDB(); // bringing connect to DB into main server
 
 // Init middleware
-app.use(express.json({ extended: false }))
+app.use(express.json({ extended: false })) // (18) now we can accept the body data --> back to user route
 
 app.get('/', (req, res) => {
     res.json({ msg: 'Welcome to the ContactKeeper API'})
