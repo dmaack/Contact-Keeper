@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); //(5) --> routes in file
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcryptjs');
@@ -10,7 +10,7 @@ const User = require('../models/User')
 // @route   POST api/users
 // @desc    Register a user
 // @access  Public
-router.post('/', [
+router.post('/', [ //(6) -> contacts
     check('name', 'Please add a name').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
     check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })

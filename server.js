@@ -1,5 +1,5 @@
-const express = require('express');
-const connectDB = require('./config/db');
+const express = require('express'); //(1) set up port / boilercode --> routes
+const connectDB = require('./config/db'); //(12) --> set up gitignore for pushing code to github --> config/default -> db.js
 
 
 const app = express();

@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); //(2) -->routes in file
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcryptjs');
@@ -11,7 +11,7 @@ const User = require('../models/User');
 // @route   GET api/auth
 // @desc    Get logged in user
 // @access  Private
-router.get('/', auth, async (req, res) => {
+router.get('/', auth, async (req, res) => { //(3)
     try {
         // select is making sure you dont return the passowrd from request
         // accessing the user id via the payload hash
@@ -27,7 +27,7 @@ router.get('/', auth, async (req, res) => {
 // @route   POST api/auth
 // @desc    Auth user and get token
 // @access  Public
-router.post('/',  [
+router.post('/',  [ //(4) --> users
     check('email', 'Please include a valid email').isEmail(),
     check('password', 'Password is required').exists()
 ], async (req, res) => {
