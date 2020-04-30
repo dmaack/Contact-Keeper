@@ -4,8 +4,8 @@ const connectDB = require('./config/db'); //(12) --> set up gitignore for pushin
 
 const app = express();
 
-// Connect Databse
-connectDB();
+// Connect Databse (15) 
+connectDB(); // bringing connect to DB into main server
 
 // Init middleware
 app.use(express.json({ extended: false }))
