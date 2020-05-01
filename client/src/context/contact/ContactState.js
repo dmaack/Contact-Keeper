@@ -23,9 +23,13 @@ const ContactState = props => {
         error: null
     }
 
+    // state allows me to access anything in my state
+    // dispatch allows me to dispatch objects to reducer
     const [ state, dispatch ] = useReducer(contactReducer, initialState)
 
-    // Actions:
+
+
+    // Actions: 
 
     // Get Contacts
     const getContacts = async () => {
@@ -155,7 +159,7 @@ const ContactState = props => {
         })
     }
 
-
+    // return allows us to wrap our application with global state
     return (
         <ContactContext.Provider
             //  anything we want to access from other components, including state and actions
@@ -181,4 +185,4 @@ const ContactState = props => {
     
 }
 
-export default ContactState
+export default ContactState;

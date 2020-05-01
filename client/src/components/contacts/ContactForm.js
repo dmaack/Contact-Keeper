@@ -3,6 +3,7 @@ import ContactContext from '../../context/contact/contactContext'
 
 
 const ContactForm = () => {
+    // intializing context - so we have access to state + actions/methods associated with contact context
     const contactContext = useContext(ContactContext)
 
     const { addContact, current, clearCurrent, updateContact } = contactContext
@@ -20,7 +21,7 @@ const ContactForm = () => {
         }
     }, [contactContext, current])
 
-
+    // each key is the piece of state that will change based on the values of my inputs
     const [ contact, setContact ] = useState({
         name: '',
         email: '',
@@ -30,10 +31,11 @@ const ContactForm = () => {
 
     const { name, email, phone, type } = contact
 
+    // what ever the user types in the input, I need to put into the slice of state
     const onChange = (e) => {
         setContact({
-            ...contact,
-            [e.target.name]: e.target.value
+            ...contact, // copy whatever is in the current state
+            [e.target.name]: e.target.value // taking the current value that's being changed (ie {name}), and dynamically allowing the key to be accessed using bracket notation and whatever the user is typing will be the value of the key
         })
     }
 
@@ -41,6 +43,7 @@ const ContactForm = () => {
         e.preventDefault()
         console.log('current onSumbit', current)
         if(current === null) {
+            // contact is what we are wanting to update in state and contains all the inputs
             addContact(contact)
         } else {
             updateContact(contact)
