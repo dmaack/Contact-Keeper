@@ -7,8 +7,11 @@ import Spinner from '../layout/Spinner'
 
 const Contacts = () => {
 
+    // intializing context - so we have access to state + actions associated with contact context
     const contactContext = useContext(ContactContext)
 
+
+    // destructiing my context for easier use
     const { contacts, filtered, getContacts, loading } = contactContext
     console.log('contacts in Contact.js', contacts)
     useEffect(() => {
